@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--View Controller - 1-->
+        <!--View Controller - Constraints 1-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController storyboardIdentifier="ViewController" id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
@@ -98,7 +98,13 @@
                             <constraint firstAttribute="bottom" secondItem="NiO-hh-V8L" secondAttribute="bottom" id="vnz-7Q-wkq"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="1" id="6d0-sf-NGY"/>
+                    <navigationItem key="navigationItem" title="Constraints 1" id="6d0-sf-NGY">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="ZMl-Gm-FJY">
+                            <connections>
+                                <action selector="navItemPressed" destination="vXZ-lx-hvc" id="0gv-sQ-MrR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bottomPanel" destination="UTT-kY-Mua" id="LNg-EV-ioN"/>
                         <outlet property="bottomPanelBottomConstraint" destination="gTS-wA-I4f" id="LDD-VJ-Cb4"/>

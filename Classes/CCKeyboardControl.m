@@ -9,6 +9,8 @@
 #import "CCKeyboardControl.h"
 #import <objc/runtime.h>
 
+#define CCKeyboardControlLoggingEnabled
+
 @interface UIViewController(CCKeyboardControl)
 
 + (UIViewController *)cc_KeyboardControlTopViewController;
@@ -37,7 +39,7 @@
 
 @end
 
-@interface CCKeyboardControlHelper : NSObject <UIGestureRecognizerDelegate>
+@interface CCKeyboardControlHelper : NSObject
 
 @property (nonatomic) CGFloat keyboardTriggerOffset;
 
@@ -54,12 +56,12 @@
 
 @implementation CCKeyboardControlHelper
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
++ (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return YES;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
++ (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return YES;
 }
@@ -101,7 +103,7 @@
     if (!self.ccKeyboardControlHelper.keyboardPanRecognizer)
     {
         self.ccKeyboardControlHelper.keyboardPanRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(CCKeyboardControlPanGestureAction:)];
-        self.ccKeyboardControlHelper.keyboardPanRecognizer.delegate = self.ccKeyboardControlHelper;
+        self.ccKeyboardControlHelper.keyboardPanRecognizer.delegate = (id<UIGestureRecognizerDelegate>)[CCKeyboardControlHelper class];
         [self.ccKeyboardControlHelper.keyboardPanRecognizer setCancelsTouchesInView:NO];
         [self addGestureRecognizer:self.ccKeyboardControlHelper.keyboardPanRecognizer];
     }
@@ -148,12 +150,16 @@
 }
 
 //private methods
-
 - (void)cc_callBlocksWithKeyboardYOriging:(CGFloat)keyboardYOriging state:(CCKeyboardControlState)state force:(BOOL)force
 {
     CGRect keyboardFrame = self.cc_KeyboardView.frame;
     keyboardFrame.origin.y = keyboardYOriging;
     keyboardFrame = [self convertRect:keyboardFrame fromView:self.cc_KeyboardWindow];
+    
+#ifdef CCKeyboardControlLoggingEnabled
+    if (force)
+        NSLog(@"force");
+#endif
     
     if (self.ccKeyboardControlHelper.constraintBasedKeyboardDidMoveBlock)
     {
@@ -215,7 +221,7 @@
     self.ccKeyboardControlHelper.animationStartAbsoluteTime = CFAbsoluteTimeGetCurrent();
 }
 
-- (void)cc_checkForDroppedAnimation:(NSNotification *)notification state:(CCKeyboardControlState)state
+- (void)cc_checkForNotFinishedAnimation:(NSNotification *)notification state:(CCKeyboardControlState)state
 {
     double duration;
     [[notification.userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&duration];
@@ -242,6 +248,15 @@
     CGRect keyboardBeginFrame;
     [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue: &keyboardBeginFrame];
     return keyboardBeginFrame.origin.y > self.cc_KeyboardWindow.height;
+}
+
+- (BOOL)cc_isFakeAnimation:(NSNotification *)notification
+{
+    CGRect keyboardBeginFrame;
+    [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue: &keyboardBeginFrame];
+    CGRect keyboardEndFrame;
+    [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardEndFrame];
+    return CGRectEqualToRect(keyboardBeginFrame, keyboardEndFrame);
 }
 
 //---------------------------------------------
@@ -311,7 +326,7 @@
     if (self.ccScreenEdgePanRecognizer.state == UIGestureRecognizerStateBegan)
         return;
     
-    if ([self cc_isHorizontalKeyboardAnimation:notification] || [self cc_isWrongKeyboardAnimation:notification])
+    if ([self cc_isHorizontalKeyboardAnimation:notification] || [self cc_isWrongKeyboardAnimation:notification] || [self cc_isFakeAnimation:notification])
         [self cc_processNotificationWithoutAnimation:notification state:CCKeyboardControlStateOpening force:NO];
     else
         [self cc_animateWithNotification:notification state:CCKeyboardControlStateOpening];
@@ -320,7 +335,7 @@
 - (void)CCKeyboardControlKeyboardDidShow:(NSNotification *)notification
 {
     [self logNoti:notification command:@"didShow"];
-    [self cc_checkForDroppedAnimation:notification state:CCKeyboardControlStateOpening];
+    [self cc_checkForNotFinishedAnimation:notification state:CCKeyboardControlStateOpening];
 }
 
 - (void)CCKeyboardControlKeyboardWillHide:(NSNotification *)notification
@@ -331,8 +346,8 @@
         return;
     if (self.ccScreenEdgePanRecognizer.state == UIGestureRecognizerStateBegan)
         return;
-   
-    if ([self cc_isHorizontalKeyboardAnimation:notification])
+
+    if ([self cc_isHorizontalKeyboardAnimation:notification] || [self cc_isFakeAnimation:notification])
         [self cc_simulateKeyboardDissapearingWithoutAnimation];
     else
         [self cc_animateWithNotification:notification state:CCKeyboardControlStateClosing];
@@ -341,6 +356,7 @@
 - (void)CCKeyboardControlKeyboardDidHide:(NSNotification *)notification
 {
     [self logNoti:notification command:@"didHide"];
+    [self cc_checkForNotFinishedAnimation:notification state:CCKeyboardControlStateClosing];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -457,7 +473,7 @@
     dispatch_once(&onceToken, ^{
         __ccScreenEdgePanRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:0 action:0];
         ((UIScreenEdgePanGestureRecognizer *)__ccScreenEdgePanRecognizer).edges = UIRectEdgeLeft;
-        __ccScreenEdgePanRecognizer.delegate = self.ccKeyboardControlHelper;
+        __ccScreenEdgePanRecognizer.delegate = (id<UIGestureRecognizerDelegate>)[CCKeyboardControlHelper class];
     });
     if (!__ccScreenEdgePanRecognizer.view && self.window)
         [self.window addGestureRecognizer:__ccScreenEdgePanRecognizer];

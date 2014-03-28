@@ -23,6 +23,9 @@
 		61015BFA18E19F24006A393B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 61015BF818E19F24006A393B /* InfoPlist.strings */; };
 		61015BFC18E19F24006A393B /* CCKeyboardControlExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 61015BFB18E19F24006A393B /* CCKeyboardControlExampleTests.m */; };
 		61015C6918E1C27A006A393B /* CCKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 61015C6818E1C27A006A393B /* CCKeyboardControl.m */; };
+		6133825918E5D03E0025B774 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6133825818E5D03E0025B774 /* BaseViewController.m */; };
+		6133825C18E5D1910025B774 /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 6133825B18E5D1910025B774 /* ViewController2.m */; };
+		6133825E18E5D26D0025B774 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6133825D18E5D26D0025B774 /* Storyboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +62,11 @@
 		61015BFB18E19F24006A393B /* CCKeyboardControlExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCKeyboardControlExampleTests.m; sourceTree = "<group>"; };
 		61015C6718E1C27A006A393B /* CCKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCKeyboardControl.h; sourceTree = "<group>"; };
 		61015C6818E1C27A006A393B /* CCKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCKeyboardControl.m; sourceTree = "<group>"; };
+		6133825718E5D03E0025B774 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		6133825818E5D03E0025B774 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		6133825A18E5D1910025B774 /* ViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController2.h; sourceTree = "<group>"; };
+		6133825B18E5D1910025B774 /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
+		6133825D18E5D26D0025B774 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,8 +133,13 @@
 				61015BDF18E19F24006A393B /* AppDelegate.h */,
 				61015BE018E19F24006A393B /* AppDelegate.m */,
 				61015BE218E19F24006A393B /* Main.storyboard */,
+				6133825718E5D03E0025B774 /* BaseViewController.h */,
+				6133825818E5D03E0025B774 /* BaseViewController.m */,
 				61015BE518E19F24006A393B /* ViewController.h */,
 				61015BE618E19F24006A393B /* ViewController.m */,
+				6133825D18E5D26D0025B774 /* Storyboard.storyboard */,
+				6133825A18E5D1910025B774 /* ViewController2.h */,
+				6133825B18E5D1910025B774 /* ViewController2.m */,
 				61015BE818E19F24006A393B /* Images.xcassets */,
 				61015BD718E19F24006A393B /* Supporting Files */,
 			);
@@ -251,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61015BE918E19F24006A393B /* Images.xcassets in Resources */,
+				6133825E18E5D26D0025B774 /* Storyboard.storyboard in Resources */,
 				61015BDB18E19F24006A393B /* InfoPlist.strings in Resources */,
 				61015BE418E19F24006A393B /* Main.storyboard in Resources */,
 			);
@@ -305,9 +319,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				61015BE718E19F24006A393B /* ViewController.m in Sources */,
+				6133825918E5D03E0025B774 /* BaseViewController.m in Sources */,
 				61015BE118E19F24006A393B /* AppDelegate.m in Sources */,
 				61015C6918E1C27A006A393B /* CCKeyboardControl.m in Sources */,
 				61015BDD18E19F24006A393B /* main.m in Sources */,
+				6133825C18E5D1910025B774 /* ViewController2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
