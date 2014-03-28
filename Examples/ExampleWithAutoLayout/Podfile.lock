@@ -1,0 +1,10 @@
+PODS:
+  - UIView+TKGeometry (0.2)
+
+DEPENDENCIES:
+  - UIView+TKGeometry
+
+SPEC CHECKSUMS:
+  UIView+TKGeometry: c206a0a89cedfb7ad7da032edca96cbcdaddbaad
+
+COCOAPODS: 0.29.0
