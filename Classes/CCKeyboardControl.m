@@ -9,7 +9,7 @@
 #import "CCKeyboardControl.h"
 #import <objc/runtime.h>
 
-#define CCKeyboardControlLoggingEnabled
+//#define CCKeyboardControlLoggingEnabled
 
 @interface UIViewController(CCKeyboardControl)
 
@@ -167,10 +167,8 @@ char *keyboardTriggerOffsetKey;
 }
 
 //private methods
-- (void)cc_callBlocksWithKeyboardYOriging:(CGFloat)keyboardYOriging state:(CCKeyboardControlState)state force:(BOOL)force
+- (void)cc_callBlocksWithKeyboardFrame:(CGRect)keyboardFrame state:(CCKeyboardControlState)state force:(BOOL)force
 {
-    CGRect keyboardFrame = self.cc_KeyboardView.frame;
-    keyboardFrame.origin.y = keyboardYOriging;
     keyboardFrame = [self convertRect:keyboardFrame fromView:self.cc_KeyboardWindow];
     
 #ifdef CCKeyboardControlLoggingEnabled
@@ -201,15 +199,15 @@ char *keyboardTriggerOffsetKey;
 {
     if (!self.cc_KeyboardView)
         return;
-    [self cc_callBlocksWithKeyboardYOriging:self.cc_KeyboardWindow.height state:CCKeyboardControlStateClosing force:NO];
+    CGRect const closingKeyboardFrame = CGRectMake(0, self.cc_KeyboardWindow.height, 0, 0);
+    [self cc_callBlocksWithKeyboardFrame:closingKeyboardFrame state:CCKeyboardControlStateClosing force:NO];
 }
 
 - (void)cc_processNotificationWithoutAnimation:(NSNotification *)notification state:(CCKeyboardControlState)state force:(BOOL)force
 {
     CGRect keyboardEndFrame;
     [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardEndFrame];    
-    CGRect frame = [self convertRect:keyboardEndFrame fromView:self.cc_KeyboardWindow];
-    [self cc_callBlocksWithKeyboardYOriging:frame.origin.y state:state force:force];
+    [self cc_callBlocksWithKeyboardFrame:keyboardEndFrame state:state force:force];
 }
 
 - (void)cc_animateWithNotification:(NSNotification *)notification state:(CCKeyboardControlState)state
@@ -412,7 +410,7 @@ char *keyboardTriggerOffsetKey;
             if (keyboardYOriging != self.cc_KeyboardView.yOrigin)
             {
                 self.cc_KeyboardView.yOrigin = keyboardYOriging;
-                [self cc_callBlocksWithKeyboardYOriging:keyboardYOriging state:CCKeyboardControlStatePanning force:NO];
+                [self cc_callBlocksWithKeyboardFrame:self.cc_KeyboardView.frame state:CCKeyboardControlStatePanning force:NO];
             }
             break;
         }
@@ -434,7 +432,7 @@ char *keyboardTriggerOffsetKey;
 
                 [UIView animateWithDuration:.1 + .2 * (diff / keyboardHeight) delay:.0 options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
                     self.cc_KeyboardView.yOrigin = keyboardYOriging;
-                    [self cc_callBlocksWithKeyboardYOriging:keyboardYOriging state:CCKeyboardControlStatePanning force:NO];
+                    [self cc_callBlocksWithKeyboardFrame:self.cc_KeyboardView.frame state:CCKeyboardControlStatePanning force:NO];
                     
                 } completion:^(__unused BOOL finished){
                     if (velocity.y >= 0)
@@ -514,7 +512,7 @@ char *keyboardTriggerOffsetKey;
         ((UIScreenEdgePanGestureRecognizer *)__ccScreenEdgePanRecognizer).edges = UIRectEdgeLeft;
         __ccScreenEdgePanRecognizer.delegate = (id<UIGestureRecognizerDelegate>)[CCKeyboardControlHelper class];
     });
-    if (!__ccScreenEdgePanRecognizer.view)
+    if (__ccScreenEdgePanRecognizer && !__ccScreenEdgePanRecognizer.view)
         [[UIApplication sharedApplication].keyWindow addGestureRecognizer:__ccScreenEdgePanRecognizer];
 #endif
     return __ccScreenEdgePanRecognizer;
