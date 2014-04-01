@@ -23,7 +23,6 @@
     
     __weak typeof(self) wself = self;
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView, CCKeyboardControlState keyboardState) {
-        NSLog(@"(%@) %@", [[wself.navigationItem.title componentsSeparatedByString:@" "] lastObject], NSStringFromCGRect(keyboardFrameInView));
         [wself updateTableViewInsetWithKeyboardFrame:keyboardFrameInView];
         wself.bottomPanel.maxY = keyboardFrameInView.origin.y;
     }];
