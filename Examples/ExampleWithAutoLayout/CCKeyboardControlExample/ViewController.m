@@ -22,7 +22,8 @@
     [super viewDidLoad];
     __weak typeof(self) wself = self;
     [self.view addKeyboardPanningWithFrameBasedActionHandler:^(CGRect keyboardFrameInView, CCKeyboardControlState keyboardState) {
-        [wself updateTableViewInsetWithKeyboardFrame:keyboardFrameInView];
+        if (keyboardState != CCKeyboardControlStatePanning)
+            [wself updateTableViewInsetWithKeyboardFrame:keyboardFrameInView];
     } constraintBasedActionHandler:^(CGRect keyboardFrameInView, CCKeyboardControlState keyboardState) {
         wself.bottomPanelBottomConstraint.constant = wself.view.height - keyboardFrameInView.origin.y;
     }];

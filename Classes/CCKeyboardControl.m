@@ -39,9 +39,13 @@
 
 @end
 
-@interface CCKeyboardControlHelper : NSObject
+@interface UIView(CCKeyboardControl_protected)
 
-@property (nonatomic) CGFloat keyboardTriggerOffset;
++ (UIView *)cc_KeyboardView;
+
+@end
+
+@interface CCKeyboardControlHelper : NSObject
 
 @property (nonatomic, weak) UIView *sview;
 @property (nonatomic, copy) CCKeyboardDidMoveBlock frameBasedKeyboardDidMoveBlock;
@@ -58,6 +62,10 @@
 
 + (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
+    if ([gestureRecognizer isMemberOfClass:[UIPanGestureRecognizer class]])
+    {
+        return [UIView cc_KeyboardView] && ![UIView cc_KeyboardView].hidden;
+    }
     return YES;
 }
 
@@ -142,14 +150,15 @@ static NSMutableArray *_cc_registeredViews;
     return [self convertRect:self.cc_KeyboardView.frame fromView:self.cc_KeyboardWindow];
 }
 
+char *keyboardTriggerOffsetKey;
 - (CGFloat)keyboardTriggerOffset
 {
-    return self.ccKeyboardControlHelper.keyboardTriggerOffset;
+    return [objc_getAssociatedObject(self, &keyboardTriggerOffsetKey) floatValue];
 }
 
 - (void)setKeyboardTriggerOffset:(CGFloat)keyboardTriggerOffset
 {
-    self.ccKeyboardControlHelper.keyboardTriggerOffset = keyboardTriggerOffset;
+    objc_setAssociatedObject(self, &keyboardTriggerOffsetKey, @(keyboardTriggerOffset), OBJC_ASSOCIATION_RETAIN);
 }
 
 - (BOOL)keyboardOpened
@@ -387,7 +396,7 @@ static NSMutableArray *_cc_registeredViews;
     CGFloat keyboardHeight = self.cc_KeyboardView.height;
     
     CGFloat touchLocationInKeyboardWindow = [gesture locationInView:self.cc_KeyboardWindow].y;
-    
+
     switch (gesture.state)
     {
         case UIGestureRecognizerStateBegan:

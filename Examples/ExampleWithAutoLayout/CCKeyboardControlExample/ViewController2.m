@@ -19,11 +19,14 @@
 {
     [super viewDidLoad];
     
+    self.view.keyboardTriggerOffset = self.bottomPanel.height;
     [self updateTableViewInsetWithKeyboardFrame:self.view.keyboardFrameInView];
     
     __weak typeof(self) wself = self;
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView, CCKeyboardControlState keyboardState) {
-        [wself updateTableViewInsetWithKeyboardFrame:keyboardFrameInView];
+        if (keyboardState != CCKeyboardControlStatePanning)
+            [wself updateTableViewInsetWithKeyboardFrame:keyboardFrameInView];
+        
         wself.bottomPanel.maxY = keyboardFrameInView.origin.y;
     }];
 }
