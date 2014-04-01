@@ -22,10 +22,10 @@
 		61015BF218E19F24006A393B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61015BD418E19F24006A393B /* UIKit.framework */; };
 		61015BFA18E19F24006A393B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 61015BF818E19F24006A393B /* InfoPlist.strings */; };
 		61015BFC18E19F24006A393B /* CCKeyboardControlExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 61015BFB18E19F24006A393B /* CCKeyboardControlExampleTests.m */; };
-		61015C6918E1C27A006A393B /* CCKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 61015C6818E1C27A006A393B /* CCKeyboardControl.m */; };
 		6133825918E5D03E0025B774 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6133825818E5D03E0025B774 /* BaseViewController.m */; };
 		6133825C18E5D1910025B774 /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 6133825B18E5D1910025B774 /* ViewController2.m */; };
 		6133825E18E5D26D0025B774 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6133825D18E5D26D0025B774 /* Storyboard.storyboard */; };
+		6133826818EB0C5E0025B774 /* CCKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6133826718EB0C5E0025B774 /* CCKeyboardControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,13 +60,13 @@
 		61015BF718E19F24006A393B /* CCKeyboardControlExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CCKeyboardControlExampleTests-Info.plist"; sourceTree = "<group>"; };
 		61015BF918E19F24006A393B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		61015BFB18E19F24006A393B /* CCKeyboardControlExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCKeyboardControlExampleTests.m; sourceTree = "<group>"; };
-		61015C6718E1C27A006A393B /* CCKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCKeyboardControl.h; sourceTree = "<group>"; };
-		61015C6818E1C27A006A393B /* CCKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCKeyboardControl.m; sourceTree = "<group>"; };
 		6133825718E5D03E0025B774 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		6133825818E5D03E0025B774 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		6133825A18E5D1910025B774 /* ViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController2.h; sourceTree = "<group>"; };
 		6133825B18E5D1910025B774 /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
 		6133825D18E5D26D0025B774 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		6133826618EB0C5E0025B774 /* CCKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCKeyboardControl.h; sourceTree = "<group>"; };
+		6133826718EB0C5E0025B774 /* CCKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCKeyboardControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +97,7 @@
 		61015BC418E19F23006A393B = {
 			isa = PBXGroup;
 			children = (
-				61015C6618E1C120006A393B /* Classes */,
+				6133826518EB0C5E0025B774 /* Classes */,
 				61015BD618E19F24006A393B /* CCKeyboardControlExample */,
 				61015BF518E19F24006A393B /* CCKeyboardControlExampleTests */,
 				61015BCF18E19F23006A393B /* Frameworks */,
@@ -175,14 +175,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		61015C6618E1C120006A393B /* Classes */ = {
+		6133826518EB0C5E0025B774 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				61015C6718E1C27A006A393B /* CCKeyboardControl.h */,
-				61015C6818E1C27A006A393B /* CCKeyboardControl.m */,
+				6133826618EB0C5E0025B774 /* CCKeyboardControl.h */,
+				6133826718EB0C5E0025B774 /* CCKeyboardControl.m */,
 			);
 			name = Classes;
-			path = ../../Classes;
+			path = ../Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,8 +320,8 @@
 			files = (
 				61015BE718E19F24006A393B /* ViewController.m in Sources */,
 				6133825918E5D03E0025B774 /* BaseViewController.m in Sources */,
+				6133826818EB0C5E0025B774 /* CCKeyboardControl.m in Sources */,
 				61015BE118E19F24006A393B /* AppDelegate.m in Sources */,
-				61015C6918E1C27A006A393B /* CCKeyboardControl.m in Sources */,
 				61015BDD18E19F24006A393B /* main.m in Sources */,
 				6133825C18E5D1910025B774 /* ViewController2.m in Sources */,
 			);
