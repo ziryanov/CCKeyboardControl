@@ -1,7 +1,7 @@
 CCKeyboardControl
 =================
 
-CCKeyboardControl allows you to easily enable interactive dismissing of keyboard. Also it provides a simple way to add keyboard dependant animations.
+CCKeyboardControl allows you to easily enable interactive dismissing of keyboard. Also it provides a simple way to add keyboard dependent animations.
 
 ![](https://github.com/ziryanov/CCKeyboardControl/raw/master/3.gif)
 
