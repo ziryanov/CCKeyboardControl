@@ -148,7 +148,10 @@ static NSMutableArray *_cc_registeredViews;
 
 - (CGRect)keyboardFrameInView
 {
-    return [self convertRect:self.cc_KeyboardView.frame fromView:self.cc_KeyboardWindow];
+    CGRect rect = [self convertRect:self.cc_KeyboardView.frame fromView:self.cc_KeyboardWindow];
+    if (CGRectEqualToRect(rect, CGRectZero))
+        rect.origin.y = [UIScreen mainScreen].bounds.size.height;
+    return rect;
 }
 
 char *keyboardTriggerOffsetKey;
