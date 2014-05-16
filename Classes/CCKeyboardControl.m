@@ -421,6 +421,7 @@ char *keyboardTriggerOffsetKey;
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled:
         {
+            self.cc_KeyboardView.userInteractionEnabled = YES;
             if (keyboardYOriging == self.cc_KeyboardWindow.height - keyboardHeight)
                 break;
             CGPoint velocity = [gesture velocityInView:self.cc_KeyboardView];
@@ -449,7 +450,6 @@ char *keyboardTriggerOffsetKey;
                     [self hideKeyboard];
             }
             gesture.maximumNumberOfTouches = NSUIntegerMax;
-            self.cc_KeyboardView.userInteractionEnabled = YES;
             break;
         }
         default:
