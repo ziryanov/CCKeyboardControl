@@ -11,4 +11,5 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes', 'Classes/*.{h,m}'
   s.requires_arc = true
   s.dependency 'UIView+TKGeometry'
+  s.screenshot = "https://raw.githubusercontent.com/ziryanov/CCKeyboardControl/master/3.gif"
 end
