@@ -484,9 +484,15 @@ char *keyboardTriggerOffsetKey;
 
 + (UIWindow *)cc_KeyboardWindow
 {
-    if ([UIApplication sharedApplication].windows.count == 1)
-        return 0;
-    return [[UIApplication sharedApplication].windows lastObject];
+    if ([UIApplication sharedApplication].windows.count == 2)
+        return [[UIApplication sharedApplication].windows lastObject];
+    
+    __block UIWindow *cc_KeyboardWindow = 0;
+    [[UIApplication sharedApplication].windows enumerateObjectsUsingBlock:^(UIWindow *window, NSUInteger idx, BOOL *stop) {
+        if ((*stop = [self cc_KeyboardView:window] != 0))
+            cc_KeyboardWindow = window;
+    }];
+    return cc_KeyboardWindow;
 }
 
 - (UIView *)cc_KeyboardView
@@ -496,7 +502,12 @@ char *keyboardTriggerOffsetKey;
 
 + (UIView *)cc_KeyboardView
 {
-    for (UIView *v in self.cc_KeyboardWindow.subviews)
+    return [self cc_KeyboardView:self.cc_KeyboardWindow];
+}
+
++ (UIView *)cc_KeyboardView:(UIWindow *)window
+{
+    for (UIView *v in window.subviews)
     {
         if ([v isKindOfClass:NSClassFromString(@"UIPeripheralHostView")])
             return v;
