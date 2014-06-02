@@ -484,14 +484,13 @@ char *keyboardTriggerOffsetKey;
 
 + (UIWindow *)cc_KeyboardWindow
 {
-    if ([UIApplication sharedApplication].windows.count == 2)
-        return [[UIApplication sharedApplication].windows lastObject];
-    
     __block UIWindow *cc_KeyboardWindow = 0;
     [[UIApplication sharedApplication].windows enumerateObjectsUsingBlock:^(UIWindow *window, NSUInteger idx, BOOL *stop) {
         if ((*stop = [self cc_KeyboardView:window] != 0))
             cc_KeyboardWindow = window;
     }];
+    if (cc_KeyboardWindow == 0 && [UIApplication sharedApplication].windows.count > 1)
+        return [[UIApplication sharedApplication].windows lastObject];
     return cc_KeyboardWindow;
 }
 
