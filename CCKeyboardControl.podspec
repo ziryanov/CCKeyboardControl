@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CCKeyboardControl"
-  s.version      = "0.3.1"
+  s.version      = "0.3.2"
   s.summary      = "Easily add keyboard tracking and dismissal"
   s.description  = "CCKeyboardControl allows you to easily enable interactive dismissing of keyboard. Also it provides a simple way to add keyboard dependant animations"
   s.homepage     = "https://github.com/ziryanov/CCKeyboardControl"
