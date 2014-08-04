@@ -278,7 +278,7 @@ char *keyboardTriggerOffsetKey;
 
 //---------------------------------------------
 
-- (BOOL)cc_isOnTopController
+- (BOOL)cc_isOnTop
 {
     if (![UIViewController cc_KeyboardControlTopViewController].navigationController)
         return YES;
@@ -288,6 +288,22 @@ char *keyboardTriggerOffsetKey;
         if (controllerView == [UIViewController cc_KeyboardControlTopViewController].view)
             return YES;
         controllerView = controllerView.superview;
+    }
+    if (!controllerView && [UIApplication sharedApplication].keyWindow.subviews.count > 1)
+    {
+        UIView *activeWindow = 0;
+        for (UIView *view in [UIApplication sharedApplication].keyWindow.subviews)
+        {
+            if (!view.hidden)
+                activeWindow = view;
+        }
+        UIView *sview = self;
+        while (sview)
+        {
+            if (sview == activeWindow)
+                return YES;
+            sview = sview.superview;
+        }
     }
     return NO;
 }
@@ -343,7 +359,7 @@ char *keyboardTriggerOffsetKey;
     
     [self enumerateRegisteredViewsHelper:^(CCKeyboardControlHelper *helper) {
         UIView *view = helper.sview;
-        if (!view.cc_isOnTopController || !view.window)
+        if (!view.cc_isOnTop || !view.window)
             return;
         
         if ([self cc_isHorizontalKeyboardAnimation:notification] || [self cc_isWrongKeyboardAnimation:notification] || [self cc_isFakeAnimation:notification])
@@ -370,7 +386,7 @@ char *keyboardTriggerOffsetKey;
 
     [self enumerateRegisteredViewsHelper:^(CCKeyboardControlHelper *helper) {
         UIView *view = helper.sview;
-        if ((!view.cc_isOnTopController && !view.cc_isOnControllerWhatHasPresentedController) || !view.window)
+        if ((!view.cc_isOnTop && !view.cc_isOnControllerWhatHasPresentedController) || !view.window)
             return;
 
         if ([self cc_isHorizontalKeyboardAnimation:notification] || [self cc_isFakeAnimation:notification])
