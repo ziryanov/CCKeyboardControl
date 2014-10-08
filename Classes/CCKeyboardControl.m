@@ -524,8 +524,16 @@ char *keyboardTriggerOffsetKey;
 {
     for (UIView *v in window.subviews)
     {
-        if ([v isKindOfClass:NSClassFromString(@"UIPeripheralHostView")])
+        if ([v isMemberOfClass:NSClassFromString(@"UIPeripheralHostView")])
             return v;
+        if ([v isMemberOfClass:NSClassFromString(@"UIInputSetContainerView")])
+        {
+            for (UIView *vv in v.subviews)
+            {
+                if ([vv isMemberOfClass:NSClassFromString(@"UIInputSetHostView")])
+                    return vv;
+            }
+        }
     }
     return 0;
 }
