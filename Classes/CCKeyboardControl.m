@@ -222,11 +222,9 @@ char *keyboardTriggerOffsetKey;
         self.ccKeyboardControlHelper.constraintBasedKeyboardDidMoveBlock(frame, state);
     
     [UIView beginAnimations:@"CCKeyboardControlAnimation" context:0];
-    UIViewAnimationCurve curve;
-    [[notification.userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&curve];
+    UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue];
     [UIView setAnimationCurve:curve];
-    double duration;
-    [[notification.userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&duration];
+    double duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     [UIView setAnimationDuration:duration];
     
     if (self.ccKeyboardControlHelper.frameBasedKeyboardDidMoveBlock)
