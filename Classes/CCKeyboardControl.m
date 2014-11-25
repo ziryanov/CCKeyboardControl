@@ -61,6 +61,13 @@
 
 @implementation CCKeyboardControlHelper
 
++ (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([gestureRecognizer isMemberOfClass:[UIPanGestureRecognizer class]])
+        return (![touch.view isFirstResponder]);
+    return YES;
+}
+
 + (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     if ([gestureRecognizer isMemberOfClass:[UIPanGestureRecognizer class]])
