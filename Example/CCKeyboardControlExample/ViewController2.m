@@ -7,7 +7,6 @@
 //
 
 #import "ViewController2.h"
-#import "CCKeyboardControl.h"
 
 @interface ViewController2 ()
 

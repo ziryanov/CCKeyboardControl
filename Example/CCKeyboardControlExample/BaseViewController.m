@@ -16,11 +16,23 @@
 
 @implementation BaseViewController
 
+- (void)dealloc
+{
+    [self.view removeObserver:self forKeyPath:@"keyboardOpened"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     _bottomPanel.backgroundColor = [UIColor colorWithRed:(arc4random() % 255 / 255.) green:(arc4random() % 255 / 255.) blue:(arc4random() % 255 / 255.) alpha:1];
+    
+    [self.view addObserver:self forKeyPath:@"keyboardOpened" options:NSKeyValueObservingOptionNew context:0];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    self.navigationItem.leftBarButtonItem.title = [change[NSKeyValueChangeNewKey] boolValue] ? @"Opened" : @"Closed";
 }
 
 - (void)viewWillAppear:(BOOL)animated

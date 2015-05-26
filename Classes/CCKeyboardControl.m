@@ -170,7 +170,7 @@ char *keyboardTriggerOffsetKey;
     objc_setAssociatedObject(self, &keyboardTriggerOffsetKey, @(keyboardTriggerOffset), OBJC_ASSOCIATION_RETAIN);
 }
 
-- (BOOL)keyboardOpened
+- (BOOL)isKeyboardOpened
 {
     return self.ccKeyboardControlHelper.keyboardOpened;
 }
@@ -378,6 +378,7 @@ char *keyboardTriggerOffsetKey;
 {
     [self logNoti:notification command:@"didShow"];
     [self enumerateRegisteredViewsHelper:^(CCKeyboardControlHelper *helper) {
+        helper.sview.keyboardOpened = YES;
         [helper.sview cc_checkForNotFinishedAnimation:notification state:CCKeyboardControlStateOpening];
     }];
 }
@@ -405,6 +406,7 @@ char *keyboardTriggerOffsetKey;
 {
     [self logNoti:notification command:@"didHide"];
     [self enumerateRegisteredViewsHelper:^(CCKeyboardControlHelper *helper) {
+        helper.sview.keyboardOpened = NO;
         [helper.sview cc_checkForNotFinishedAnimation:notification state:CCKeyboardControlStateClosing];
     }];
 }

@@ -17,3 +17,5 @@
     #import <UIView+TKGeometry.h>
 
 #endif
+
+#import "CCKeyboardControl.h"
