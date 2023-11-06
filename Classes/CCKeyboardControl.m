@@ -250,7 +250,7 @@ char *keyboardTriggerOffsetKey;
     [UIView setAnimationDuration:duration];
     
     if (self.ccKeyboardControlHelper.animationStartAbsoluteTime > 0 && CFAbsoluteTimeGetCurrent() - self.ccKeyboardControlHelper.animationStartAbsoluteTime < duration)
-        [self cc_processNotificationWithoutAnimation:notification state:CCKeyboardControlStateOpening force:YES];
+        [self cc_processNotificationWithoutAnimation:notification state:state force:YES];
     self.ccKeyboardControlHelper.animationStartAbsoluteTime = 0;
 }
 
